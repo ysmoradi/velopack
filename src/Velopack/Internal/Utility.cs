@@ -486,7 +486,7 @@ namespace Velopack
 
         public static bool IsHttpUrl(string urlOrPath)
         {
-            var uri = default(Uri);
+            Uri uri;
             if (!Uri.TryCreate(urlOrPath, UriKind.Absolute, out uri)) {
                 return false;
             }

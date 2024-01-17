@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Velopack\Velopack.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Label="NuGet">
+    <None Include="Velopack.Build.targets" Pack="true" PackagePath="build\Velopack.Build.targets" />
+  </ItemGroup>
+</Project>

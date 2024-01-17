@@ -1,0 +1,44 @@
+<Project>
+  <PropertyGroup>
+    <!--
+    <VelopackAppName></VelopackAppName>
+    <VelopackApiKey></VelopackApiKey>
+    -->
+    <VelopackServerUrl Condition="'$(VelopackServerUrl)'==''">TODO</VelopackServerUrl>
+    <VelopackRepositoryUrl Condition="'$(VelopackRepositoryUrl)' == ''">$(RepositoryUrl)</VelopackRepositoryUrl>
+    <VelopackPackageVersion Condition="'$(VelopackPackageVersion)' == ''">$(PackageVersion)</VelopackPackageVersion>
+    <VelopackPackageVersion Condition="'$(VelopackPackageVersion)' == ''">$(Version)</VelopackPackageVersion>
+    <VelopackSetupFile Condition="'$(VelopackSetupFile)' == ''">$(VelopackAppName)Setup.exe</VelopackSetupFile>
+
+    <VelopackOutputDirectory Condition="'$(SolutionDir)' != ''">$(SolutionDir)VelopackReleases</VelopackOutputDirectory>
+    <VelopackOutputDirectory Condition="'$(VelopackOutputDirectory)' == ''">VelopackReleases</VelopackOutputDirectory>
+    
+    <VelopackCliPath Condition="'$(VelopackCliPath)' == ''">vpk</VelopackCliPath>
+    <VelopackPublishedAppDirectory>$([MSBuild]::NormalizeDirectory($(ProjectDir)$(PublishDir)))</VelopackPublishedAppDirectory>
+
+    <VelopackFramework Condition="'$(VelopackFramework)' == ''">net8-x64-desktop</VelopackFramework>
+  </PropertyGroup>
+
+  <Target Name="VelopackPublish" AfterTargets="VelopackBuildInstaller" Condition="'$(VelopackApiKey)' != '' And '$(VelopackAppName)' != ''">
+    <Exec Command="&quot;$(VelopackCliPath)&quot; add-release github --app-name &quot;$(VelopackAppName)&quot; --app-version &quot;$(VelopackPackageVersion)&quot; --repository &quot;$(VelopackRepositoryUrl)&quot; --api-key &quot;$(VelopackApiKey)&quot; --server-url &quot;$(VelopackServerUrl)&quot;" />
+  </Target>
+  
+  <Target Name="VelopackBuildInstaller" AfterTargets="Publish" Condition="'$(VelopackAppName)' != ''">
+
+      <!-- vpk pack -u AvaloniaCrossPlat -v %version% -o %~dp0releases -p %~dp0publish -f net8-x64-desktop -->
+    <Exec Command="&quot;$(VelopackCliPath)&quot; latest-version --packId &quot;$(VelopackAppName)&quot; --server-url &quot;$(VelopackServerUrl)&quot;" />
+
+
+    <Exec Command="&quot;$(VelopackCliPath)&quot; download --app-name &quot;$(VelopackAppName)&quot; --output-dir &quot;$(VelopackOutputDirectory)&quot; --server-url &quot;$(VelopackServerUrl)&quot;" />
+
+    <ItemGroup>
+      <!-- Grab all downloaded files, excluding the manifest -->
+      <DownloadedFiles Include="$(VelopackOutputDirectory)\**" />
+      <DownloadedFiles Remove="$(VelopackOutputDirectory)\RELEASES" />
+    </ItemGroup>
+    
+    <Exec Command="&quot;$(ClowdSquirrelPath)&quot; pack --framework &quot;$(ClowdSquirrelFramework)&quot; --packId &quot;$(VelopackAppName)&quot; --packVersion &quot;$(VelopackPackageVersion)&quot; --packAuthors &quot;$(Authors)&quot; --packDir &quot;$(VelopackPublishedAppDirectory.TrimEnd('\'))&quot; --releaseDir &quot;$(VelopackOutputDirectory)&quot;" />
+
+    <Delete Files="@(DownloadedFiles)" />
+  </Target>
+</Project>

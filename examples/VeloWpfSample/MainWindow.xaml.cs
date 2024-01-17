@@ -1,13 +1,5 @@
 ﻿using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Microsoft.Extensions.Logging;
 using Velopack;
 
@@ -21,7 +13,8 @@ namespace VeloWpfSample
         public MainWindow()
         {
             InitializeComponent();
-            _um = new UpdateManager(Program.UpdateUrl, logger: Program.Log);
+            //_um = new UpdateManager(Program.UpdateUrl, logger: Program.Log);
+            _um = new UpdateManager(new VelopackUpdateSource(), logger: Program.Log);
             TextLog.Text = Program.Log.ToString();
             Program.Log.LogUpdated += LogUpdated;
             UpdateStatus();
