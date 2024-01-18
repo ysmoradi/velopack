@@ -352,18 +352,19 @@ pub fn test_x64_and_x86_is_supported_but_not_arm64_or_invalid() {
 }
 
 pub fn check_authenticode_signature<P: AsRef<Path>>(path: P) -> Result<bool> {
-    let path = path.as_ref();
-    let v = codesign_verify::CodeSignVerifier::for_file(path)
-        .map_err(|e| anyhow!("Unable to open authenticode verifier for '{}' ({:?})", path.to_string_lossy(), e))?;
-    let sig = v.verify().map_err(|e| anyhow!("Unable to verify binary signature '{}' ({:?})", path.to_string_lossy(), e))?;
+    todo!();
+    // let path = path.as_ref();
+    // let v = codesign_verify::CodeSignVerifier::for_file(path)
+    //     .map_err(|e| anyhow!("Unable to open authenticode verifier for '{}' ({:?})", path.to_string_lossy(), e))?;
+    // let sig = v.verify().map_err(|e| anyhow!("Unable to verify binary signature '{}' ({:?})", path.to_string_lossy(), e))?;
 
-    info!("Code signature for '{}' is valid", path.to_string_lossy());
-    debug!("Subject Name: {:?}", sig.subject_name());
-    debug!("Issuer Name: {:?}", sig.issuer_name());
-    debug!("SHA1 Thumbprint: {}", sig.sha1_thumbprint());
-    debug!("Serial: {:?}", sig.serial());
+    // info!("Code signature for '{}' is valid", path.to_string_lossy());
+    // debug!("Subject Name: {:?}", sig.subject_name());
+    // debug!("Issuer Name: {:?}", sig.issuer_name());
+    // debug!("SHA1 Thumbprint: {}", sig.sha1_thumbprint());
+    // debug!("Serial: {:?}", sig.serial());
 
-    Ok(true)
+    // Ok(true)
 }
 
 pub fn assert_can_run_binary_authenticode<P: AsRef<Path>>(path: P) -> Result<()> {
