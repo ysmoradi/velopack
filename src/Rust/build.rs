@@ -6,14 +6,14 @@ use std::process::Command;
 extern crate winres;
 
 fn main() {
-    let ver_output = Command::new("nbgv").args(&["get-version", "-v", "NuGetPackageVersion"]).output().expect("Failed to execute nbgv get-version");
-    let version = String::from_utf8(ver_output.stdout).expect("Unable to convert ngbv output to string");
-    let version = version.trim();
-    let ver = semver::Version::parse(&version).expect("Unable to parse ngbv output as semver version");
-    let ver: u64 = ver.major << 48 | ver.minor << 32 | ver.patch << 16;
-    let desc = format!("Velopack {}", version);
+    // let ver_output = Command::new("nbgv").args(&["get-version", "-v", "NuGetPackageVersion"]).output().expect("Failed to execute nbgv get-version");
+    // let version = String::from_utf8(ver_output.stdout).expect("Unable to convert ngbv output to string");
+    // let version = version.trim();
+    // let ver = semver::Version::parse(&version).expect("Unable to parse ngbv output as semver version");
+    // let ver: u64 = ver.major << 48 | ver.minor << 32 | ver.patch << 16;
+    // let desc = format!("Velopack {}", version);
 
-    println!("cargo:rustc-env=NGBV_VERSION={}", version);
+    println!("cargo:rustc-env=NGBV_VERSION={}", "1.0.0");
 
     // #[cfg(target_os = "windows")]
     // let _ = winres::WindowsResource::new()
