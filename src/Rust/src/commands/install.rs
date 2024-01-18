@@ -11,8 +11,8 @@ use std::{
 use winsafe::{self as w, co};
 
 pub fn install(debug_pkg: Option<&PathBuf>, install_to: Option<&PathBuf>) -> Result<()> {
-    let osinfo = os_info::get();
-    info!("OS: {}, Arch={}", osinfo, osinfo.architecture().unwrap_or("unknown"));
+    // let osinfo = os_info::get();
+    // info!("OS: {}, Arch={}", osinfo, osinfo.architecture().unwrap_or("unknown"));
 
     if !w::IsWindowsVersionOrGreater(6, 1, 1)? {
         bail!("This installer requires Windows 7 SP1 or later and cannot run.");

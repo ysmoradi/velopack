@@ -72,23 +72,24 @@ impl RuntimeArch {
         }
     }
     pub fn from_current_system() -> Option<Self> {
-        let info = os_info::get();
-        let machine = info.architecture();
-        if machine.is_none() {
-            return None;
-        }
-        let mut machine = machine.unwrap();
-        if machine.is_empty() {
-            return None;
-        }
-        if machine == "x86_64" {
-            machine = "x64";
-        } else if machine == "i386" {
-            machine = "x86";
-        } else if machine == "aarch64" {
-            machine = "arm64";
-        }
-        Self::from_str(machine)
+        todo!();
+        // let info = os_info::get();
+        // let machine = info.architecture();
+        // if machine.is_none() {
+        //     return None;
+        // }
+        // let mut machine = machine.unwrap();
+        // if machine.is_empty() {
+        //     return None;
+        // }
+        // if machine == "x86_64" {
+        //     machine = "x64";
+        // } else if machine == "i386" {
+        //     machine = "x86";
+        // } else if machine == "aarch64" {
+        //     machine = "arm64";
+        // }
+        // Self::from_str(machine)
     }
 }
 

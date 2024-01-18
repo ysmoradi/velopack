@@ -305,41 +305,42 @@ where
 }
 
 pub fn is_cpu_architecture_supported(architecture: &str) -> Result<bool> {
-    let info = os_info::get();
-    let machine = info.architecture();
-    if machine.is_none() {
-        return Ok(true); // we can't detect current arch so try installing anyway.
-    }
+    todo!();
+    // let info = os_info::get();
+    // let machine = info.architecture();
+    // if machine.is_none() {
+    //     return Ok(true); // we can't detect current arch so try installing anyway.
+    // }
 
-    let mut machine = machine.unwrap();
-    let is_win_11 = is_os_version_or_greater("11")?;
+    // let mut machine = machine.unwrap();
+    // let is_win_11 = is_os_version_or_greater("11")?;
 
-    if machine.is_empty() || architecture.is_empty() {
-        return Ok(true);
-    }
+    // if machine.is_empty() || architecture.is_empty() {
+    //     return Ok(true);
+    // }
 
-    // https://github.com/stanislav-tkach/os_info/blob/master/os_info/src/windows/winapi.rs#L82
-    if machine == "x86_64" {
-        machine = "x64";
-    } else if machine == "i386" {
-        machine = "x86";
-    } else if machine == "aarch64" {
-        machine = "arm64";
-    }
+    // // https://github.com/stanislav-tkach/os_info/blob/master/os_info/src/windows/winapi.rs#L82
+    // if machine == "x86_64" {
+    //     machine = "x64";
+    // } else if machine == "i386" {
+    //     machine = "x86";
+    // } else if machine == "aarch64" {
+    //     machine = "arm64";
+    // }
 
-    if machine == "x86" {
-        // windows x86 only supports x86
-        Ok(architecture == "x86")
-    } else if machine == "x64" {
-        // windows x64 only supports x86 and x64
-        Ok(architecture == "x86" || architecture == "x64")
-    } else if machine == "arm64" {
-        // windows arm64 supports x86, and arm64, and only on windows 11 does it support x64
-        Ok(architecture == "x86" || (architecture == "x64" && is_win_11) || architecture == "arm64")
-    } else {
-        // we don't know what this is, so try installing anyway
-        Ok(true)
-    }
+    // if machine == "x86" {
+    //     // windows x86 only supports x86
+    //     Ok(architecture == "x86")
+    // } else if machine == "x64" {
+    //     // windows x64 only supports x86 and x64
+    //     Ok(architecture == "x86" || architecture == "x64")
+    // } else if machine == "arm64" {
+    //     // windows arm64 supports x86, and arm64, and only on windows 11 does it support x64
+    //     Ok(architecture == "x86" || (architecture == "x64" && is_win_11) || architecture == "arm64")
+    // } else {
+    //     // we don't know what this is, so try installing anyway
+    //     Ok(true)
+    // }
 }
 
 #[test]

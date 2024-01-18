@@ -46,7 +46,7 @@ rpath = false            # disable rpath
 [dependencies]
 anyhow = "1.0"
 pretty-bytes-rust = "0.3"
-os_info = { git = "https://github.com/stanislav-tkach/os_info.git", branch = "master", default-features = false } # public releases don't yet have processor arch info
+# os_info = { git = "https://github.com/stanislav-tkach/os_info.git", branch = "master", default-features = false } # public releases don't yet have processor arch info
 zip = { version = "0.6", default-features = false, features = ["deflate"] }
 regex = "1.10"
 rand = "0.8"
